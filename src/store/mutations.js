@@ -38,6 +38,7 @@ export default {
       queue.update(msg)
     } else {
       state.queues.push(new Queue(msg))
+      state.queues = state.queues.sort((a, b) => a.name.localeCompare(b.name))
     }
   },
 

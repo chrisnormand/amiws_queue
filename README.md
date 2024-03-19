@@ -1,40 +1,47 @@
 # amiws_queue
-[![Build Status](https://travis-ci.org/staskobzar/amiws_queue.svg?branch=master)](https://travis-ci.org/staskobzar/amiws_queue)
-[![codecov](https://codecov.io/gh/staskobzar/amiws_queue/branch/master/graph/badge.svg)](https://codecov.io/gh/staskobzar/amiws_queue)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8333ddee50b14cccbc8f56828ccc816a)](https://www.codacy.com/app/staskobzar/amiws_queue?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=staskobzar/amiws_queue&amp;utm_campaign=Badge_Grade)
 ![GPL](https://img.shields.io/badge/license-GPL_3-green.svg "License")
 
 >[!WARNING]
->This project is outdated and I do not have time to support it so you can use it on your own risk.
+>This project is a simple fork from an outdated project no longer supported : [amiws](https://github.com/staskobzar/amiws). 
+So you can use it on your own risk.
 >vuejs used in the project is very old and probably will not work with new node versions
 
-> Asterisk Queues Realtime Manager
+ ## Asterisk Queues Realtime Manager
 
-Web realtime dashboard for Asterisk Queues. It is using another project, [amiws](https://github.com/staskobzar/amiws), as a Back-End for AMI traffic to web-socket conversion. More [screenshots here](https://staskobzar.blogspot.ca/2017/12/asterisk-queues-realtime-dashboard-with.html).
+Web realtime dashboard for Asterisk Queues. It is using another project, [amiws](https://github.com/staskobzar/amiws), as a Back-End for AMI traffic to web-socket conversion. 
 
-![amiws_queue screenshot](https://github.com/staskobzar/amiws_queue/blob/master/screenshot.png)
+More [screenshots here](https://staskobzar.blogspot.ca/2017/12/asterisk-queues-realtime-dashboard-with.html).
+
+![amiws_queue screenshot](/screenshot.png)
 
 ## Build Setup
 
 Refere to [amiws](https://github.com/staskobzar/amiws) documentation to learn how to install and setup Back-End.
 
-This project uses VueJS with webpack and it requires NodeJS. Setup and build it as following:
-```bash
-git clone https://github.com/staskobzar/amiws_queue.git
+This project uses VueJS with webpack and it requires NodeJS. Setup as following (on Windows):
+```
+git clone https://github.com/chrisnormand/amiws_queue.git
 cd amiws_queue
-npm install
-WS_URL="'ws://10.20.30.01:8000'" npm run build
+yarn install
 ```
 
-Use an IP and port of the server where amiws is running when defining shell variable ```WS_URL```.
+For the build on Windows, you can use `buildProd.ps1` :
+
+```
+$env:WS_URL="'ws://<you-amiws-server>:8000'"
+yarn build
+cd .\dist\ && Rename-Item -Path "index.html" -NewName "queues.html"
+```
+
+Use an IP and port of the server where amiws is running when defining env variable ```WS_URL```.
 Note, when defining WS_URL usage of double and single quotes : _"'ws://IPADDR:PORT'"_.
 
-After successful build files are stored in "dist" folder. Simply copy files from "dist" folder to the server with "amiws" Back-End,
-to the folder defined in parameter "web_root" of "amiws" config file.
+After successful build files are stored in "dist" folder. Simply copy files from "dist" folder to the server with "amiws" Back-End, to the folder defined in parameter "web_root" of "amiws" config file.
+You should access you page at `http://<you-amiws-server>:8000/queues.html`.
 
 ## Asterisk configuration
 
-This dashboard was tested with Asterisk 11 and 13. Should work with other versions too (AMI v2 and before).
+This dashboard was tested with Asterisk 20. Should work with other versions too (AMI v2 and before).
 Asterisk queues additional events MUST be enabled per queue.
 
 In configuration file (Asterisk version older 12):
